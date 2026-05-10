@@ -1,0 +1,20 @@
+{
+  "name": "websitedemo-server",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Backend for the portfolio site: health, community chat, presence and an AI 'ask me about the site owner' endpoint.",
+  "type": "module",
+  "main": "src/index.js",
+  "engines": {
+    "node": ">=22.13"
+  },
+  "scripts": {
+    "start": "node --env-file-if-exists=.env src/index.js",
+    "dev": "node --watch --env-file-if-exists=.env src/index.js",
+    "test": "node --test \"test/**/*.test.js\""
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.128.0",
+    "express": "^5.2.1"
+  }
+}
