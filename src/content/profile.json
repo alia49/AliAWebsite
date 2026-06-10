@@ -1,0 +1,299 @@
+{
+  "name": "Ali Altimimi",
+  "role": "Software Engineer",
+  "location": "San Jose, CA",
+  "pronouns": "he/him",
+  "now": "Looking for a new-grad software engineering role · SF Bay Area · open to relocating",
+  "email": "alialtimimiwork@proton.me",
+  "bio": "Software engineer with a B.S. in Computer Science from SJSU — passionate about building things that are fast, well-crafted, and genuinely useful. Coffee enthusiast and SJSU Software Engineering Club officer.",
+  "about": "Based in San Jose, CA. I've built platforms serving 35+ daily active users, achieved sub-10ms response times with Redis caching, and cut AI API costs by 20% through custom caching layers. I'm drawn to problems at the intersection of performance engineering and intelligent systems — particularly integrating LLM APIs to ship features that make a measurable difference.",
+  "resume": "resume.pdf",
+  "resumeFileName": "Ali_Altimimi_Resume.pdf",
+  "socials": [
+    {
+      "label": "github",
+      "url": "https://github.com/alia49"
+    },
+    {
+      "label": "linkedin",
+      "url": "https://www.linkedin.com/in/ali-altimimi/"
+    }
+  ],
+  "highlights": [
+    "B.S. Computer Science · SJSU",
+    "SJSU Software Engineering Club officer",
+    "Freelance full-stack developer",
+    "LLM integration · GPT-4 & Gemini"
+  ],
+  "stats": [
+    {
+      "value": "35+",
+      "label": "daily users served"
+    },
+    {
+      "value": "<10 ms",
+      "label": "redirect latency"
+    },
+    {
+      "value": "20%",
+      "label": "AI cost cut"
+    }
+  ],
+  "projectsIntro": "A selection of full-stack and freelance work — spanning AI-powered tools, real-time systems, and production client applications.",
+  "contactIntro": "I'm always open to new opportunities, collaborations, or just a good conversation about software. Feel free to reach out through any of the channels below.",
+  "posts": [],
+  "projects": [
+    {
+      "slug": "ratelimiter",
+      "title": "RateLimiter",
+      "category": "Backend",
+      "badge": "",
+      "date": "Sep 2026",
+      "desc": "A dependency-free Python rate limiter with four interchangeable algorithms (fixed window, sliding window log, sliding window counter, token bucket), thread-safe storage, and a small HTTP decision service that speaks the IETF RateLimit headers.",
+      "bullets": [
+        "Implemented four rate-limiting algorithms behind one interface and benchmarked their throughput, per-key memory and accuracy under different traffic patterns.",
+        "Raised HTTP throughput from ~22 to about 4,700 requests/sec on one keep-alive connection by tracing the stall to Nagle's algorithm plus delayed ACKs, then buffering each response into one write and setting TCP_NODELAY.",
+        "Fixed memory that never shrank after sweeping idle keys (CPython dicts don't shrink on delete) by rebuilding the mapping on sweep.",
+        "Covered the algorithms, concurrency (8 threads on one key), bounded memory and the real HTTP server with 82 tests that run in under a second using a fake clock."
+      ],
+      "stack": [
+        "Python",
+        "Concurrency",
+        "HTTP",
+        "Benchmarking"
+      ],
+      "image": "",
+      "links": {
+        "demo": "",
+        "repo": "https://github.com/alia49/RateLimiter"
+      }
+    },
+    {
+      "slug": "envlens",
+      "title": "envlens",
+      "category": "Developer Tools",
+      "badge": "",
+      "date": "2026",
+      "desc": "A zero-dependency Python CLI that compares the environment variables your code reads against your .env and .env.example files, across Python, JavaScript/TypeScript, Ruby and Go, and reports every mismatch with file:line locations without ever printing a value.",
+      "bullets": [
+        "Built a three-way drift check (code vs .env vs .env.example) that finds missing, undocumented, unfilled, unused and duplicate variables in one pass.",
+        "Parsed Python with the ast module so lookups in comments and strings are ignored, with regex scanners for JavaScript/TypeScript, Ruby and Go.",
+        "Designed for secret safety: values are never stored in findings or printed, and broken multiline secrets are reported without echoing their fragments.",
+        "CI-friendly exit codes and JSON output, backed by 177 unit tests."
+      ],
+      "stack": [
+        "Python",
+        "AST parsing",
+        "CLI",
+        "CI tooling"
+      ],
+      "image": "",
+      "links": {
+        "demo": "",
+        "repo": "https://github.com/alia49/envlens"
+      }
+    },
+    {
+      "slug": "brainboard",
+      "title": "BrainBoard",
+      "category": "Full Stack",
+      "badge": "",
+      "date": "Jan 2026 – Mar 2026",
+      "desc": "AI-powered collaborative whiteboard that transforms rough ideas into structured concept maps in real time. An embedded GPT-4 agent automatically clusters, expands, and connects user input — supporting 10+ simultaneous collaborators with sub-2s AI response times.",
+      "bullets": [
+        "Accelerated team ideation sessions by 3× by building a real-time collaborative whiteboard with React, Node.js, and MongoDB.",
+        "Achieved 90% contextual relevance by engineering a prompt system with persona-based prompts, summarization chains, and temperature-tuned expansion tailored to each brainstorming domain.",
+        "Supported 10+ simultaneous users with sub-2s AI suggestions by architecting a WebSocket sync engine with Redis pub/sub and batched AI request queuing to avoid rate limits."
+      ],
+      "stack": [
+        "React",
+        "Node.js",
+        "MongoDB",
+        "GPT-4",
+        "Redis",
+        "WebSockets"
+      ],
+      "image": "",
+      "links": {
+        "demo": "",
+        "repo": ""
+      }
+    },
+    {
+      "slug": "voyage",
+      "title": "Voyage",
+      "category": "Full Stack",
+      "badge": "",
+      "date": "Aug 2025 – Dec 2025",
+      "desc": "Full-stack travel planning application that lets users build custom itineraries or generate AI-powered trip plans via the Gemini API. Features persistent user accounts, cross-device responsiveness, and a custom caching layer that cut AI token costs by 20%.",
+      "bullets": [
+        "Enabled users to plan trips through custom itineraries or AI-generated travel plans by building a full-stack application with JavaScript, Flask, HTML, CSS, and Docker, integrated with the Gemini API.",
+        "Delivered a responsive cross-device experience with quick retrieval of past plans by building user account management with persistent itinerary storage.",
+        "Reduced API latency and cut Gemini AI token costs by 20% by containerizing the application with Docker and implementing a custom caching layer for Gemini AI and Google Maps API responses."
+      ],
+      "stack": [
+        "JavaScript",
+        "Flask",
+        "HTML",
+        "CSS",
+        "Docker",
+        "Gemini API"
+      ],
+      "image": "",
+      "links": {
+        "demo": "",
+        "repo": ""
+      }
+    },
+    {
+      "slug": "linkpulse",
+      "title": "LinkPulse",
+      "category": "Full Stack",
+      "badge": "",
+      "date": "Jan 2025 – May 2025",
+      "desc": "High-performance URL shortener with a live analytics dashboard. Achieved sub-10ms redirect times and reduced PostgreSQL read load by 60% through Redis caching. Streams real-time click data — including geo distribution, referrer tracking, and time-series charts — to a React dashboard via WebSockets.",
+      "bullets": [
+        "Achieved sub-10ms redirect response times and reduced PostgreSQL read load by 60% by implementing a Redis caching layer for high-frequency short link lookups under simulated concurrent traffic.",
+        "Delivered real-time click analytics including geographic distribution, referrer tracking, and time-series visualizations by building a WebSocket-driven event pipeline that streams click data to a React dashboard.",
+        "Prevented API abuse while sustaining 500+ requests per minute per user by designing Express.js rate-limiting middleware with Redis-backed sliding window counters."
+      ],
+      "stack": [
+        "Express.js",
+        "React",
+        "PostgreSQL",
+        "Redis",
+        "WebSockets"
+      ],
+      "image": "",
+      "links": {
+        "demo": "",
+        "repo": ""
+      }
+    }
+  ],
+  "experience": [
+    {
+      "year": "2025",
+      "role": "Software Engineer",
+      "org": "Prokuro AI",
+      "dates": "Nov 2025 – Present",
+      "location": "San Francisco Bay Area · On-site",
+      "desc": "Building AI agents that automate and optimize supply chain decisions, working across the agent pipeline, backend services, and evaluation tooling.",
+      "bullets": [
+        "Reduced LLM token usage per agent run by ~3% (~400 tokens per run) by trimming redundant prompt context and caching repeated supplier lookups, cutting duplicate lookup calls by ~15%.",
+        "Improved agent tool-call success rate by ~2% (from ~94% to ~96%) by adding schema validation and automatic retries for malformed tool calls, reducing manual workflow reruns by ~10%.",
+        "Cut p95 latency of multi-step agent workflows by ~5% (~0.4s) by running independent tool calls in parallel and batching database reads, reducing database round trips per run by ~20%.",
+        "Raised workflow test coverage by ~10% by building 50+ regression tests from real supply chain scenarios, catching 6 prompt and model regressions before release.",
+        "Shipped 8+ features end-to-end in a small startup team, from design and code review through deployment and production monitoring, and reviewed 60+ pull requests."
+      ]
+    },
+    {
+      "year": "2025",
+      "role": "Full Stack Developer",
+      "org": "Abu Barista Coffee",
+      "dates": "Sep 2025 – Jan 2026",
+      "location": "Freelance",
+      "url": "https://abu-barista-coffee.com/shop",
+      "desc": "Production MERN platform built for a local coffee vendor serving 35+ daily active users. Delivers secure authentication, seasonal menu management, inventory tracking, and event inquiry workflows — eliminating the manual coordination overhead the client previously relied on.",
+      "bullets": [
+        "Ensured secure data storage for 35+ daily active users by engineering a full-stack MERN application with Bcrypt password hashing and JWT authentication.",
+        "Enabled the client to manage seasonal menus, track inventory, and process vending requests by building a secure, lightweight platform that eliminated manual coordination overhead.",
+        "Drove engagement and shortened order cycles by streamlining menu accuracy and event inquiry workflows, reducing staff workload."
+      ],
+      "stack": [
+        "MongoDB",
+        "Express.js",
+        "React",
+        "Node.js",
+        "JWT",
+        "Bcrypt"
+      ]
+    },
+    {
+      "year": "2023",
+      "role": "Software Engineering Club Officer",
+      "org": "San Jose State University",
+      "dates": "Aug 2023 – Dec 2025"
+    },
+    {
+      "year": "",
+      "role": "Student Worker",
+      "org": "Welcome Center, Mission College",
+      "dates": ""
+    },
+    {
+      "year": "",
+      "role": "Volunteer",
+      "org": "Second Harvest of Silicon Valley",
+      "dates": ""
+    }
+  ],
+  "education": [
+    {
+      "degree": "B.S. Computer Science",
+      "school": "San Jose State University, San Jose, CA",
+      "date": "Dec 2025"
+    }
+  ],
+  "stack": [
+    "JavaScript",
+    "TypeScript",
+    "React",
+    "HTML",
+    "CSS",
+    "Node.js",
+    "Express.js",
+    "Flask",
+    "PostgreSQL",
+    "MongoDB",
+    "ChromaDB",
+    "Redis",
+    "WebSockets",
+    "Docker",
+    "AWS",
+    "OpenAI GPT-4",
+    "Google Gemini",
+    "Linux",
+    "Python"
+  ],
+  "focusAreas": [
+    {
+      "title": "Front-End Development",
+      "body": "Builds responsive, accessible UIs with React, JavaScript, TypeScript, HTML, and CSS. Focused on performance, component architecture, and seamless cross-device experiences."
+    },
+    {
+      "title": "Back-End Development",
+      "body": "Develops server-side logic, RESTful APIs, and microservices using Node.js, Express.js, and Flask. Experienced with PostgreSQL, MongoDB, Redis, and message queues."
+    },
+    {
+      "title": "AI & LLM Integration",
+      "body": "Integrates LLM APIs — including OpenAI GPT-4 and Google Gemini — with custom prompt engineering pipelines to build intelligent, production-grade user-facing features."
+    },
+    {
+      "title": "Cloud & DevOps",
+      "body": "Experienced with Docker for containerization and AWS services including EC2, S3, Lambda, and IAM. Comfortable deploying, scaling, and monitoring applications in cloud environments."
+    },
+    {
+      "title": "Databases & Caching",
+      "body": "Designs schemas and optimizes queries across MongoDB, PostgreSQL, and ChromaDB. Implements Redis caching strategies to reduce database load and achieve sub-10ms response times."
+    },
+    {
+      "title": "Linux & Systems",
+      "body": "Proficient in Linux system administration, shell scripting, and CLI tooling for development and server management. Comfortable working in terminal-first environments."
+    }
+  ],
+  "certifications": [],
+  "recommendations": [],
+  "affiliations": [],
+  "githubUser": "alia49",
+  "gaze": {
+    "enabled": false,
+    "dir": "images/gaze"
+  },
+  "portrait": {
+    "src": "images/profile.webp",
+    "width": 1000,
+    "height": 667,
+    "alt": "Portrait of Ali Altimimi in front of a city skyline"
+  }
+}

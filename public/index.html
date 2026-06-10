@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#ffffff" />
+
+    <!-- Apply the saved theme before first paint (no flash). Mirrors src/lib/theme.js. -->
+    <script>
+      (function () {
+        var dark = false;
+        try {
+          var saved = localStorage.getItem('theme');
+          dark =
+            saved === 'dark' ||
+            ((saved === null || saved === 'system') &&
+              window.matchMedia &&
+              window.matchMedia('(prefers-color-scheme: dark)').matches);
+        } catch (e) {}
+        var root = document.documentElement;
+        if (dark) root.classList.add('dark');
+        root.style.colorScheme = dark ? 'dark' : 'light';
+        var meta = document.querySelector('meta[name="theme-color"]');
+        if (meta) meta.setAttribute('content', dark ? '#0a0a0b' : '#ffffff');
+      })();
+    </script>
+    <style>
+      html { background: #ffffff; color: #0a0a0a; }
+      html.dark { background: #0a0a0b; color: #f4f4f5; }
+    </style>
+
+    <title>Ali Altimimi — Software Engineer</title>
+    <meta
+      name="description"
+      content="Ali Altimimi is a software engineer with a B.S. in Computer Science from SJSU, building things that are fast, well-crafted, and genuinely useful."
+    />
+    <meta name="author" content="Ali Altimimi" />
+    <link rel="canonical" href="https://alia49.github.io/AliAWebsite/" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Ali Altimimi" />
+    <meta property="og:title" content="Ali Altimimi — Software Engineer" />
+    <meta
+      property="og:description"
+      content="Software engineer with a B.S. in Computer Science from SJSU — building things that are fast, well-crafted, and genuinely useful."
+    />
+    <meta property="og:url" content="https://alia49.github.io/AliAWebsite/" />
+    <meta property="og:image" content="https://alia49.github.io/AliAWebsite/og-image.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Ali Altimimi in front of a city skyline" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Ali Altimimi — Software Engineer" />
+    <meta
+      name="twitter:description"
+      content="Software engineer with a B.S. in Computer Science from SJSU — building things that are fast, well-crafted, and genuinely useful."
+    />
+    <meta name="twitter:image" content="https://alia49.github.io/AliAWebsite/og-image.jpg" />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Ali Altimimi",
+        "jobTitle": "Software Engineer",
+        "url": "https://alia49.github.io/AliAWebsite/",
+        "image": "https://alia49.github.io/AliAWebsite/images/profile.webp",
+        "address": { "@type": "PostalAddress", "addressLocality": "San Jose", "addressRegion": "CA" },
+        "alumniOf": { "@type": "CollegeOrUniversity", "name": "San Jose State University" },
+        "sameAs": ["https://github.com/alia49", "https://www.linkedin.com/in/ali-altimimi/"]
+      }
+    </script>
+
+    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" sizes="32x32" />
+    <link rel="icon" href="%PUBLIC_URL%/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Geist:wght@300..700&family=Geist+Mono:wght@400..600&family=Source+Serif+4:ital,opsz,wght@0,8..60,400..600;1,8..60,400..600&display=swap"
+    />
+    <link rel="preload" as="image" href="%PUBLIC_URL%/images/profile.webp" type="image/webp" />
+  </head>
+  <body>
+    <noscript>
+      <p style="font-family: system-ui, sans-serif; padding: 2rem; max-width: 40rem">
+        Ali Altimimi — Software Engineer. This site needs JavaScript. You can reach Ali at
+        <a href="mailto:alialtimimiwork@proton.me">alialtimimiwork@proton.me</a> or on
+        <a href="https://github.com/alia49">GitHub</a>.
+      </p>
+    </noscript>
+    <div id="root"></div>
+  </body>
+</html>

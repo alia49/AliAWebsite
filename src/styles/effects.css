@@ -1,0 +1,352 @@
+/*
+ * Signature effects: halftone dot fields, fade masks, dither textures,
+ * entrance motion, the live dot, the projects spotlight deck and the
+ * theme-switch transitions. Plain CSS (not @layer) so it can be imported
+ * after Tailwind and win specificity ties.
+ */
+
+/* ---------- Halftone dot fields ---------- */
+.ht,
+.ht-dense,
+.ht-wide,
+.ht-fine {
+  background-image: radial-gradient(circle, var(--ht-dot) 1px, transparent 1.6px);
+  background-size: 9px 9px;
+  pointer-events: none;
+}
+.ht-dense {
+  background-size: 6px 6px;
+}
+.ht-wide {
+  background-size: 13px 13px;
+}
+.ht-fine {
+  background-image: radial-gradient(circle, var(--ht-dot) 0.8px, transparent 1.3px);
+  background-size: 5px 5px;
+}
+
+/* ---------- Masks ---------- */
+.mask-tr {
+  -webkit-mask-image: radial-gradient(ellipse at top right, #000 0%, transparent 70%);
+  mask-image: radial-gradient(ellipse at top right, #000 0%, transparent 70%);
+}
+.mask-bl {
+  -webkit-mask-image: radial-gradient(ellipse at bottom left, #000 0%, transparent 70%);
+  mask-image: radial-gradient(ellipse at bottom left, #000 0%, transparent 70%);
+}
+.mask-l {
+  -webkit-mask-image: radial-gradient(ellipse at left, #000 0%, transparent 72%);
+  mask-image: radial-gradient(ellipse at left, #000 0%, transparent 72%);
+}
+.mask-circle {
+  -webkit-mask-image: radial-gradient(circle at center, #000 0%, transparent 68%);
+  mask-image: radial-gradient(circle at center, #000 0%, transparent 68%);
+}
+.mask-fade-x {
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 14%, #000 86%, transparent);
+  mask-image: linear-gradient(to right, transparent, #000 14%, #000 86%, transparent);
+}
+/* visible at the bottom, fading out upwards */
+.mask-up {
+  -webkit-mask-image: linear-gradient(to top, #000 0%, transparent 100%);
+  mask-image: linear-gradient(to top, #000 0%, transparent 100%);
+}
+/* visible at the top, fading out downwards */
+.mask-down {
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 0%, transparent 100%);
+}
+
+/*
+ * Photo dissolve: the photo is solid at the top, then breaks into a dot
+ * pattern of itself that thins out towards the bottom edge. Three mask layers:
+ *   1. solid top part                  (added)
+ *   2. dot grid                        (intersected with 3)
+ *   3. longer fade for the dots
+ * Browsers without mask-composite fall back to the plain linear fade.
+ */
+.photo-dissolve {
+  -webkit-mask-image: linear-gradient(to bottom, #000 62%, transparent 94%);
+  mask-image: linear-gradient(to bottom, #000 62%, transparent 94%);
+}
+@supports (mask-composite: intersect) {
+  .photo-dissolve {
+    mask-image:
+      linear-gradient(to bottom, #000 60%, transparent 82%),
+      radial-gradient(circle, #000 1.1px, transparent 1.7px),
+      linear-gradient(to bottom, #000 55%, transparent 99%);
+    mask-size: 100% 100%, 5px 5px, 100% 100%;
+    mask-repeat: no-repeat, repeat, no-repeat;
+    mask-composite: add, intersect, add;
+  }
+}
+
+/* ---------- Dither texture (ordered-dither pixels drawn as SVG) ---------- */
+.dither {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8' shape-rendering='crispEdges'%3E%3Cpath d='M0 0h1v1H0zM4 0h1v1H4zM2 2h1v1H2zM6 2h1v1H6zM0 4h1v1H0zM4 4h1v1H4zM2 6h1v1H2zM6 6h1v1H6zM1 1h1v1H1zM5 5h1v1H5z' fill='%23000'/%3E%3C/svg%3E");
+  background-size: 8px 8px;
+  image-rendering: pixelated;
+  opacity: 0.22;
+  pointer-events: none;
+}
+html.dark .dither {
+  filter: invert(1);
+  opacity: 0.16;
+}
+
+/* ---------- Entrance motion ---------- */
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.fade-up {
+  animation: fade-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.d1 { animation-delay: 70ms; }
+.d2 { animation-delay: 140ms; }
+.d3 { animation-delay: 210ms; }
+.d4 { animation-delay: 280ms; }
+.d5 { animation-delay: 350ms; }
+.d6 { animation-delay: 420ms; }
+
+@keyframes overlay-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes backdrop-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.overlay-panel {
+  animation: overlay-in 0.35s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.overlay-backdrop {
+  animation: backdrop-in 0.25s ease both;
+}
+
+/* ---------- Pulsing "live" dot ---------- */
+.live-dot {
+  position: relative;
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+  background: rgb(var(--ink));
+  flex-shrink: 0;
+}
+.live-dot::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: inherit;
+  animation: live-ping 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+@keyframes live-ping {
+  0% { transform: scale(1); opacity: 0.6; }
+  75%, 100% { transform: scale(2.6); opacity: 0; }
+}
+
+/* ---------- Skeleton / loader ---------- */
+@keyframes skeleton {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.45; }
+}
+.skeleton {
+  animation: skeleton 1.6s ease-in-out infinite;
+}
+@keyframes dot-bounce {
+  0%, 80%, 100% { transform: translateY(0); opacity: 0.35; }
+  40% { transform: translateY(-3px); opacity: 1; }
+}
+.loader-dots span {
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  margin-right: 3px;
+  border-radius: 999px;
+  background: currentColor;
+  animation: dot-bounce 1.1s infinite ease-in-out both;
+}
+.loader-dots span:nth-child(2) { animation-delay: 0.15s; }
+.loader-dots span:nth-child(3) { animation-delay: 0.3s; }
+
+/* ---------- Caret (typing test + typewriter) ---------- */
+@keyframes caret-blink {
+  0%, 45% { opacity: 1; }
+  55%, 100% { opacity: 0; }
+}
+.caret-blink {
+  animation: caret-blink 1s steps(1) infinite;
+}
+.type-caret {
+  position: absolute;
+  width: 2px;
+  border-radius: 2px;
+  background: rgb(var(--ink));
+  transition: left 90ms ease-out, top 90ms ease-out;
+  pointer-events: none;
+}
+
+/* ---------- Projects spotlight deck ---------- */
+.deck {
+  position: relative;
+}
+@media (max-width: 1023.98px) {
+  /* bleed to the full viewport width on small screens */
+  .deck {
+    margin-inline: calc(50% - 50vw);
+    overflow-x: clip;
+  }
+}
+.deck-stage {
+  position: relative;
+  height: 18.5rem;
+  touch-action: pan-y;
+}
+.deck-card {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  margin-inline: auto;
+  width: min(21rem, 76%);
+  height: 16.5rem;
+  border-radius: 1.1rem;
+  transform-origin: 50% 90%;
+  transition:
+    transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.4s ease,
+    box-shadow 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+    visibility 0s linear 0s;
+  will-change: transform;
+}
+.deck-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: rgb(var(--bg) / 0.4);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+.deck-card[data-pos='center'] {
+  z-index: 3;
+  transform: translateY(0) rotate(0) scale(1);
+  box-shadow: var(--shadow-deep);
+}
+.deck-card[data-pos='left'] {
+  z-index: 2;
+  transform: translateX(-40%) translateY(14px) rotate(-16deg) scale(0.88);
+  cursor: pointer;
+}
+.deck-card[data-pos='right'] {
+  z-index: 2;
+  transform: translateX(40%) translateY(14px) rotate(16deg) scale(0.88);
+  cursor: pointer;
+}
+.deck-card[data-pos='left']::after,
+.deck-card[data-pos='right']::after {
+  opacity: 1;
+}
+.deck-card[data-pos='hidden'] {
+  z-index: 1;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateY(26px) scale(0.8);
+  transition:
+    transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.3s ease,
+    visibility 0s linear 0.5s;
+}
+/* links and buttons on side cards are inert: the whole card is the target */
+.deck-card:not([data-pos='center']) .deck-card-body {
+  pointer-events: none;
+}
+@media (hover: hover) {
+  .deck-card[data-pos='center']:hover {
+    transform: translateY(-7px) rotate(0) scale(1);
+  }
+  .deck-card[data-pos='left']:hover {
+    transform: translateX(-40%) translateY(14px) rotate(-12deg) scale(0.88);
+  }
+  .deck-card[data-pos='right']:hover {
+    transform: translateX(40%) translateY(14px) rotate(12deg) scale(0.88);
+  }
+  .deck-card[data-pos='left']:hover::after,
+  .deck-card[data-pos='right']:hover::after {
+    opacity: 0;
+  }
+}
+.deck-card[data-pos='left']:focus-visible::after,
+.deck-card[data-pos='right']:focus-visible::after {
+  opacity: 0;
+}
+
+/* ---------- Theme switch: view-transition reveal + crossfade fallback ---------- */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+::view-transition-new(root) {
+  z-index: 2;
+}
+html.theme-anim,
+html.theme-anim *,
+html.theme-anim *::before,
+html.theme-anim *::after {
+  transition:
+    background-color 0.5s ease,
+    border-color 0.5s ease,
+    color 0.5s ease,
+    fill 0.5s ease,
+    stroke 0.5s ease !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fade-up,
+  .overlay-panel,
+  .overlay-backdrop {
+    animation: none;
+  }
+  .live-dot::after,
+  .skeleton,
+  .caret-blink {
+    animation: none;
+  }
+  .deck-card,
+  .deck-card::after,
+  .type-caret {
+    transition: none;
+  }
+  html.theme-anim,
+  html.theme-anim * {
+    transition: none !important;
+  }
+}
+
+/* ---------- misc ---------- */
+.shadow-deep {
+  box-shadow: var(--shadow-deep);
+}
+.scrollbar-none {
+  scrollbar-width: none;
+}
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}

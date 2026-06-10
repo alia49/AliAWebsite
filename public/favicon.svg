@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 31 31" shape-rendering="crispEdges">
+  <style>.bg{fill:#0a0a0b}.fg{fill:#fafafa}@media (prefers-color-scheme:dark){.bg{fill:#fafafa}.fg{fill:#0a0a0b}}</style>
+  <rect class="bg" width="31" height="31" rx="7"/>
+  <path class="fg" d="M11 5h9v3h-9zM8 8h6v3h-6zM17 8h6v3h-6zM5 11h6v3h-6zM20 11h6v3h-6zM5 14h6v3h-6zM20 14h6v3h-6zM5 17h21v3h-21zM5 20h6v3h-6zM20 20h6v3h-6zM5 23h6v3h-6zM20 23h6v3h-6z"/>
+</svg>

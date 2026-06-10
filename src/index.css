@@ -1,0 +1,132 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+ * Design tokens. Colours are RGB channel triplets so Tailwind can apply
+ * opacity (`rgb(var(--ink) / .4)`). The palette is a monochrome grey ramp;
+ * `html.dark` redefines the whole ramp so the same utility (e.g. `text-g-500`)
+ * means "muted text" in both themes.
+ */
+@layer base {
+  :root {
+    --bg: 255 255 255;
+    --ink: 10 10 10;
+    --g50: 250 250 250;
+    --g100: 244 244 245;
+    --g200: 228 228 231;
+    --g300: 212 212 216;
+    --g400: 161 161 170;
+    --g500: 108 108 116;
+    --g600: 82 82 91;
+    --g700: 63 63 70;
+    --g800: 39 39 42;
+    --g900: 24 24 27;
+    --g950: 9 9 11;
+    --danger: 185 28 28;
+    --ht-dot: rgb(var(--ink) / 0.3);
+    --shadow-deep: 0 1px 2px rgb(0 0 0 / 0.06), 0 24px 48px -16px rgb(0 0 0 / 0.28);
+    color-scheme: light;
+  }
+
+  html.dark {
+    --bg: 10 10 11;
+    --ink: 244 244 245;
+    --g50: 20 20 22;
+    --g100: 28 28 31;
+    --g200: 42 42 46;
+    --g300: 60 60 66;
+    --g400: 98 98 106;
+    --g500: 150 150 158;
+    --g600: 176 176 183;
+    --g700: 204 204 210;
+    --g800: 226 226 230;
+    --g900: 240 240 242;
+    --g950: 250 250 250;
+    --danger: 248 113 113;
+    --ht-dot: rgb(var(--ink) / 0.16);
+    --shadow-deep: 0 1px 2px rgb(0 0 0 / 0.4), 0 24px 48px -16px rgb(0 0 0 / 0.8);
+    color-scheme: dark;
+  }
+
+  html,
+  body {
+    background-color: rgb(var(--bg));
+    color: rgb(var(--ink));
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    @apply font-sans antialiased;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: 'ss01', 'cv11';
+  }
+
+  ::selection {
+    background-color: rgb(var(--ink));
+    color: rgb(var(--bg));
+  }
+
+  :focus-visible {
+    outline: 2px solid rgb(var(--ink));
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  [hidden] {
+    display: none !important;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+@layer components {
+  /* Small mono label used for dates, counters and captions. */
+  .label {
+    @apply font-mono text-xs tracking-tight text-g-500;
+  }
+
+  /* Text link with an understated underline that firms up on hover. */
+  .link {
+    @apply underline decoration-g-300 underline-offset-4 transition-colors hover:decoration-ink;
+  }
+
+  .chip {
+    @apply inline-flex items-center rounded-full border border-g-200 bg-g-50 px-2.5 py-0.5 font-mono text-[11px] text-g-600;
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center gap-1.5 rounded-full border border-g-200 bg-bg px-3.5 py-1.5 text-sm text-ink transition-colors hover:border-g-400 disabled:cursor-not-allowed disabled:opacity-50;
+  }
+
+  .btn-solid {
+    @apply inline-flex items-center justify-center gap-1.5 rounded-full bg-ink px-3.5 py-1.5 text-sm text-bg transition-opacity hover:opacity-85 disabled:cursor-not-allowed disabled:opacity-40;
+  }
+
+  .kbd {
+    @apply inline-flex min-w-[1.25rem] items-center justify-center rounded border border-g-200 bg-g-50 px-1 font-mono text-[10px] leading-4 text-g-500;
+  }
+
+  .input {
+    @apply w-full rounded-xl border border-g-200 bg-bg px-3 py-2 text-[16px] text-ink placeholder:text-g-500 focus:border-g-400 focus:outline-none sm:text-sm;
+  }
+
+  .sr-only-focusable:not(:focus) {
+    @apply sr-only;
+  }
+}
